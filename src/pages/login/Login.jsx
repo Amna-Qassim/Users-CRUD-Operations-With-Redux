@@ -1,4 +1,3 @@
-import { React, useState } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +9,7 @@ import "./loginStyle.css";
 
 // Creating schema
 const schema = Yup.object().shape({
-  userName: Yup.string()
+  username: Yup.string()
     .matches(/^07[3-9]\d{8}$/, "must be like this 07xxxxxxxxx")
     .required("UserName is a required field"),
   password: Yup.string()
@@ -22,27 +21,20 @@ const Login = () => {
   const { loading } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   const TOKEN_KEY = "token";
   console.log(loading);
+
   return (
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
         autocomplete="off"
         validationSchema={schema}
-        initialValues={{ userName: "", password: "" }}
-        onSubmit={async (values) => {
-          setUserName(values.userName);
-          setPassword(values.password);
-          //short hand way to write request by axios
+        initialValues={{ username: "", password: "" }}
+        onSubmit={(values) => {
           dispatch(handleLoading());
-          await axios
-            .post("https://mes-backend.herokuapp.com/users/login", {
-              username: username,
-              password: password,
-            })
+          axios
+            .post("https://mes-backend.herokuapp.com/users/login", values)
             .then((response) => {
               console.log(response);
               let token = response.data.accessToken;
@@ -72,17 +64,17 @@ const Login = () => {
                 {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
                 <input
                   type="text"
-                  name="userName"
+                  name="username"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.userName}
+                  value={values.username}
                   placeholder="Enter phoneNumber"
                   className="form-control inp_text"
                   id="userName"
                 />
                 {/* If validation is not passed show errors */}
                 <p className="error">
-                  {errors.userName && touched.userName && errors.userName}
+                  {errors.username && touched.username && errors.username}
                 </p>
                 {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
                 <input

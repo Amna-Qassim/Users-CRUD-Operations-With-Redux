@@ -1,5 +1,5 @@
 import React from "react";
-import errorImage from "../images/error-404-page2.webp";
+import errorImage from "../utils/images/error-404-page2.webp";
 import { useNavigate } from "react-router-dom";
 
 const ErrorPage = () => {

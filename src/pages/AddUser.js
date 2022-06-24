@@ -14,12 +14,12 @@ const schema = Yup.object().shape({
     .required("Password is a required field")
     .min(8, "Password must be at least 8 characters"),
   firstName: Yup.string()
-    .matches(/^[a-zA-Z]$/, "must be letters")
+    .matches(/^[a-zA-Z]+$/, "must be letters")
     .required("firstName is a required field")
     .min(2, "To short")
     .max(10, "To long"),
   lastName: Yup.string()
-    .matches(/^[a-zA-Z]$/, "must be letters")
+    .matches(/^[a-zA-Z]+$/, "must be letters")
     .required("lastName is a required field")
     .min(2, "To short")
     .max(10, "To long"),

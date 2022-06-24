@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUsers, deleteUser } from "../redux/actions";
+import { loadUsers, deleteUser, handleLoading } from "../redux/actions";
 import { useNavigate, Link } from "react-router-dom";
 import { Table } from "antd";
 
@@ -15,6 +15,7 @@ const Home = () => {
   console.log("error", error);
 
   useEffect(() => {
+    dispatch(handleLoading());
     dispatch(loadUsers());
   }, []);
 

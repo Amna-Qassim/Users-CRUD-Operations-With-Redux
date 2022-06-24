@@ -37,6 +37,7 @@ const handleError = (error) => ({
 
 export const loadUsers = (skip, take) => {
   return async function (dispatch) {
+    const token = JSON.parse(localStorage.getItem("token"));
     dispatch(handleLoading());
     await axios
       .get(`https://mes-backend.herokuapp.com/users`, {

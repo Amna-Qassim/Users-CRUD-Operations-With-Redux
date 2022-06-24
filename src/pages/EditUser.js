@@ -13,11 +13,11 @@ const schema = Yup.object().shape({
   ),
   password: Yup.string().min(8, "Password must be at least 8 characters"),
   firstName: Yup.string()
-    .matches(/^[a-zA-Z]$/, "must be letters")
+    .matches(/^[a-zA-Z]+$/, "must be letters")
     .min(2, "To short")
     .max(10, "To long"),
   lastName: Yup.string()
-    .matches(/^[a-zA-Z]$/, "must be letters")
+    .matches(/^[a-zA-Z]+$/, "must be letters")
     .min(2, "To short")
     .max(10, "To long"),
   role: Yup.string(),
