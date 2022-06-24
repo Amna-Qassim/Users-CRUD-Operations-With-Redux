@@ -54,7 +54,7 @@ const Home = () => {
             className="btn btn-light"
             onClick={() => {
               localStorage.removeItem("token");
-              navigate("/");
+              navigate("/login");
             }}
           >
             Logout

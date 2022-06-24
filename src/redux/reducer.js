@@ -1,13 +1,25 @@
-import { GET_USERS, DELETE_USER, ADD_USER, UPDATE_USER } from "./actionType";
+import {
+  GET_USERS,
+  DELETE_USER,
+  ADD_USER,
+  UPDATE_USER,
+  LOADING,
+  HANDLE_Error,
+} from "./actionType";
 
 const initialState = {
   users: [],
-  user: {},
-  loading: true,
+  loading: false,
+  error: "",
 };
 
 const usersReducers = (state = initialState, action) => {
   switch (action.type) {
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case GET_USERS:
       return {
         ...state,
@@ -20,6 +32,11 @@ const usersReducers = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case HANDLE_Error:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

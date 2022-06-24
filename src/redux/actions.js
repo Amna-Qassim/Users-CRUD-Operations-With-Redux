@@ -1,4 +1,11 @@
-import { GET_USERS, DELETE_USER, ADD_USER, UPDATE_USER } from "./actionType";
+import {
+  GET_USERS,
+  DELETE_USER,
+  ADD_USER,
+  UPDATE_USER,
+  HANDLE_Error,
+  LOADING,
+} from "./actionType";
 import axios from "axios";
 
 const token = JSON.parse(localStorage.getItem("token"));
@@ -20,13 +27,22 @@ const userUpdated = () => ({
   type: UPDATE_USER,
 });
 
-export const loadUsers = (take) => {
-  return function (dispatch) {
-    axios
+export const handleLoading = () => ({
+  type: LOADING,
+});
+const handleError = (error) => ({
+  type: HANDLE_Error,
+  payload: error,
+});
+
+export const loadUsers = (skip, take) => {
+  return async function (dispatch) {
+    dispatch(handleLoading());
+    await axios
       .get(`https://mes-backend.herokuapp.com/users`, {
         params: {
-          skip: 0,
-          take: 30,
+          skip: skip,
+          take: take,
         },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,7 +52,10 @@ export const loadUsers = (take) => {
         console.log("resp", resp);
         dispatch(getUsers(resp.data));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        dispatch(handleError(error));
+        console.log(error);
+      });
   };
 };
 
@@ -53,7 +72,7 @@ export const deleteUser = (id) => {
         dispatch(userDeleted());
         dispatch(loadUsers());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => dispatch(handleError(error)));
   };
 };
 
@@ -76,7 +95,7 @@ export const addUser = (user) => {
         dispatch(userAdded());
         dispatch(loadUsers());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => dispatch(handleError(error)));
   };
 };
 
@@ -93,6 +112,6 @@ export const updateUser = (user, id) => {
         dispatch(userUpdated());
         dispatch(loadUsers());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => dispatch(handleError(error)));
   };
 };

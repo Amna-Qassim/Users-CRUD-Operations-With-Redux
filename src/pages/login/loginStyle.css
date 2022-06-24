@@ -73,3 +73,7 @@ body {
   font-size: 10px;
   color: red;
 }
+
+.ant-spin {
+  height: 2px;
+}
