@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { handleLoading } from "../../redux/actions";
+import { handleLoading } from "../../redux/actions/actions";
 import { Spin } from "antd";
 import axios from "axios";
 import * as Yup from "yup";

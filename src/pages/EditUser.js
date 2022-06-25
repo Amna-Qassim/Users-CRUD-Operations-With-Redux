@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../redux/actions";
+import { updateUser } from "../redux/actions/actions";
 
 // Creating schema
 const schema = Yup.object().shape({

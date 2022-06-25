@@ -5,7 +5,7 @@ import {
   UPDATE_USER,
   LOADING,
   HANDLE_Error,
-} from "./actionType";
+} from "../actions/actionType";
 
 const initialState = {
   users: [],

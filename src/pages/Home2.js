@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUsers, deleteUser, handleLoading } from "../redux/actions";
+import { loadUsers, deleteUser, handleLoading } from "../redux/actions/actions";
 import { useNavigate, Link } from "react-router-dom";
 import { Table } from "antd";
 
