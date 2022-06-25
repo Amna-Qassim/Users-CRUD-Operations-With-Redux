@@ -41,8 +41,13 @@ const Login = () => {
               console.log(response);
               let token = response.data.accessToken;
               //i convert the data from object to string before i set it in localStorage
-              localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
-              navigate("/users");
+              localStorage.setItem(TOKEN_KEY, token);
+              //here when i use navigate it will not re-render the page then
+              // the page will not know about the token in local storage
+              // navigate("/users");
+
+              //this way will re-render page then will get the token
+              window.location.pathname = "/users";
             })
             .catch((error) => {
               console.log(error);

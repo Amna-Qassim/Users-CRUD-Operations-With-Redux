@@ -1,3 +1,4 @@
+import instance from "../../utils/axios";
 import {
   GET_USERS,
   DELETE_USER,
@@ -6,9 +7,6 @@ import {
   HANDLE_Error,
   LOADING,
 } from "./actionType";
-import axios from "axios";
-
-const token = JSON.parse(localStorage.getItem("token"));
 
 const getUsers = (users) => ({
   type: GET_USERS,
@@ -37,16 +35,13 @@ const handleError = (error) => ({
 
 export const loadUsers = (skip, take) => {
   return async function (dispatch) {
-    const token = JSON.parse(localStorage.getItem("token"));
+    // const token = JSON.parse(localStorage.getItem("token"));
     dispatch(handleLoading());
-    await axios
-      .get(`https://mes-backend.herokuapp.com/users`, {
+    await instance
+      .get(`/users`, {
         params: {
           skip: skip,
           take: take,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
         },
       })
       .then((resp) => {
@@ -62,12 +57,8 @@ export const loadUsers = (skip, take) => {
 
 export const deleteUser = (id) => {
   return function (dispatch) {
-    axios
-      .delete(`https://mes-backend.herokuapp.com/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    instance
+      .delete(`users/${id}`)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(userDeleted());
@@ -80,16 +71,10 @@ export const deleteUser = (id) => {
 export const addUser = (user) => {
   return function (dispatch) {
     console.log("user", user);
-    axios({
+    instance({
       method: "post",
-      url: `https://mes-backend.herokuapp.com/users/register`,
+      url: `users/register`,
       data: user,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
     })
       .then((resp) => {
         console.log("resp", resp);
@@ -102,12 +87,8 @@ export const addUser = (user) => {
 
 export const updateUser = (user, id) => {
   return function (dispatch) {
-    axios
-      .patch(`https://mes-backend.herokuapp.com/users/${id}`, user, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    instance
+      .patch(`users/${id}`, user)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(userUpdated());
