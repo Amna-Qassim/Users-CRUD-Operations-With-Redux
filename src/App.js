@@ -4,7 +4,8 @@ import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import Login from "./pages/login/Login";
 import ErrorPage from "./pages/ErrorPage";
-import ProtectedRoutes from "./utils/ProtectedRoutes";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
+import { PublicRoutes } from "./utils/PublicRoutes";
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
           <Route path="/addUser" element={<AddUser />} />
           <Route path="/editUser" element={<EditUser />} />
         </Route>
-        <Route path="/" element={<Login />} />
-        <Route path="*" element={<ErrorPage />} />{" "}
+        <Route element={<PublicRoutes />}>
+          <Route path="/" element={<Login />} />
+        </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );
