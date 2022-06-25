@@ -11,7 +11,6 @@ const schema = Yup.object().shape({
     /^07[3-9]\d{8}$/,
     "must be like this 07xxxxxxxxx"
   ),
-  password: Yup.string().min(8, "Password must be at least 8 characters"),
   firstName: Yup.string()
     .matches(/^[a-zA-Z]+$/, "must be letters")
     .min(2, "To short")
@@ -146,32 +145,6 @@ const EditUser = () => {
                   {/* If validation is not passed show errors */}
                   <p className="text-danger">
                     {errors.lastName && touched.lastName && errors.lastName}
-                  </p>
-                  {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
-                  <label
-                    style={{
-                      color: "#636363",
-                      fontWeight: "bold",
-                      fontSize: "16px",
-                      margin: "3px 0",
-                    }}
-                  >
-                    Password:
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    autoComplete="off"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    placeholder="Enter password"
-                    className="form-control"
-                    id="password"
-                  />
-                  {/* If validation is not passed show errors */}
-                  <p className="text-danger">
-                    {errors.password && touched.password && errors.password}
                   </p>
                   {/* isActive input */}
                   <div className="my-2">

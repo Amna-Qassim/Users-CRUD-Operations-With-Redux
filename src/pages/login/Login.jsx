@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +19,7 @@ const schema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [error, setError] = useState("");
   const { loading } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,6 +46,7 @@ const Login = () => {
             })
             .catch((error) => {
               console.log(error);
+              setError(error);
             });
         }}
       >
@@ -61,6 +64,12 @@ const Login = () => {
               {/* Passing handleSubmit parameter to html form onSubmit property */}
               <form noValidate onSubmit={handleSubmit}>
                 <span>Users Login</span>
+                {error && (
+                  <h6 style={{ color: "red" }}>
+                    {error.code} <br /> make sure you enter correct userName and
+                    password!
+                  </h6>
+                )}
                 {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
                 <input
                   type="text"

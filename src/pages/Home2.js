@@ -36,15 +36,15 @@ const Home = () => {
       key: "userName",
     },
     {
-      title: "Role",
-      key: "role",
+      title: "isActive",
+      key: "isActive",
       dataIndex: "role",
       render: (_, record) => (
         <>
           {record.isActive ? (
-            <span style={{ color: "red" }}>{record.role}</span>
+            <span style={{ color: "red" }}>Active</span>
           ) : (
-            <span style={{ color: "#059fbd" }}>Not ADMIN</span>
+            <span style={{ color: "#059fbd" }}>Not Active</span>
           )}
         </>
       ),
