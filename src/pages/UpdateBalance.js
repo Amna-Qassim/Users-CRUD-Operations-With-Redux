@@ -15,7 +15,6 @@ const UpdateBalance = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, balance } = useSelector((state) => state.data);
-  const balanceData = balance.results;
 
   const getBalance = () => {
     dispatch(loadBalance());
