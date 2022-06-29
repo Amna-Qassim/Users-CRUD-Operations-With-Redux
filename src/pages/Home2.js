@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(handleLoading());
     dispatch(loadUsers());
-  }, []);
+  }, [dispatch]);
 
   const columns = [
     {
@@ -52,29 +52,33 @@ const Home = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <div className="d-flex justify-content-start">
-          <button
-            type="button"
-            className="btn btn-danger me-2"
-            onClick={() => handleDelete(record.id)}
-          >
-            Delete
-          </button>{" "}
-          <button type="button" className="btn btn-info">
-            <Link
-              className=""
-              style={{ color: "#fff" }}
-              to={{
-                pathname: "/editUser",
-              }}
-              state={record}
-            >
-              Edit
-            </Link>
-          </button>
-        </div>
-      ),
+      render: (_, record) => {
+        if (record.role === "ADMIN") {
+          return (
+            <div className="d-flex justify-content-start">
+              <button
+                type="button"
+                className="btn btn-danger me-2"
+                onClick={() => handleDelete(record.id)}
+              >
+                Delete
+              </button>{" "}
+              <button type="button" className="btn btn-info">
+                <Link
+                  className=""
+                  style={{ color: "#fff" }}
+                  to={{
+                    pathname: "/editUser",
+                  }}
+                  state={record}
+                >
+                  Edit
+                </Link>
+              </button>
+            </div>
+          );
+        }
+      },
     },
   ];
   const handleDelete = (id) => {
@@ -100,6 +104,13 @@ const Home = () => {
                 onClick={() => navigate("/addUser")}
               >
                 Add User
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary me-3"
+                onClick={() => navigate("/balance")}
+              >
+                Go To Balance
               </button>
               <button
                 type="button"

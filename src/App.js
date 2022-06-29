@@ -6,6 +6,7 @@ import Login from "./pages/login/Login";
 import ErrorPage from "./pages/ErrorPage";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 import { PublicRoutes } from "./utils/PublicRoutes";
+import UpdateBalance from "./pages/UpdateBalance";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/users" element={<Home2 />} />
           <Route path="/addUser" element={<AddUser />} />
           <Route path="/editUser" element={<EditUser />} />
+          <Route path="/balance" element={<UpdateBalance />} />
         </Route>
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<Login />} />

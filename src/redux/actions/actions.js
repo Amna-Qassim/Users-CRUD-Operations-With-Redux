@@ -4,6 +4,8 @@ import {
   DELETE_USER,
   ADD_USER,
   UPDATE_USER,
+  GET_BALANCE,
+  UPDATE_BALANCE,
   HANDLE_Error,
   LOADING,
 } from "./actionType";
@@ -25,9 +27,19 @@ const userUpdated = () => ({
   type: UPDATE_USER,
 });
 
+const getBalance = (balance) => ({
+  type: GET_BALANCE,
+  payload: balance,
+});
+
+const balanceUpdated = () => ({
+  type: UPDATE_BALANCE,
+});
+
 export const handleLoading = () => ({
   type: LOADING,
 });
+
 const handleError = (error) => ({
   type: HANDLE_Error,
   payload: error,
@@ -92,6 +104,37 @@ export const updateUser = (user, id) => {
         console.log("resp", resp);
         dispatch(userUpdated());
         dispatch(loadUsers());
+      })
+      .catch((error) => dispatch(handleError(error)));
+  };
+};
+
+// Get and Update Balance
+
+export const loadBalance = () => {
+  return async function (dispatch) {
+    dispatch(handleLoading());
+    await instance
+      .get(`/balances`)
+      .then((resp) => {
+        console.log("balance", resp);
+        dispatch(getBalance(resp.data));
+      })
+      .catch((error) => {
+        dispatch(handleError(error));
+        console.log(error);
+      });
+  };
+};
+
+export const updateBalance = (data) => {
+  return function (dispatch) {
+    instance
+      .patch("/balances", data)
+      .then((resp) => {
+        console.log("resp", resp);
+        dispatch(balanceUpdated());
+        dispatch(loadBalance());
       })
       .catch((error) => dispatch(handleError(error)));
   };
