@@ -12,11 +12,13 @@ const schema = Yup.object().shape({
     "must be like this 07xxxxxxxxx"
   ),
   firstName: Yup.string()
-    .matches(/^[a-zA-Z]+$/, "must be letters")
+    .matches(/^[a-zA-Z-]+$/, "must be letters")
+    .required("firstName is a required field")
     .min(2, "To short")
     .max(10, "To long"),
   lastName: Yup.string()
-    .matches(/^[a-zA-Z]+$/, "must be letters")
+    .matches(/^[a-zA-Z-]+$/, "must be letters")
+    .required("lastName is a required field")
     .min(2, "To short")
     .max(10, "To long"),
   role: Yup.string(),
