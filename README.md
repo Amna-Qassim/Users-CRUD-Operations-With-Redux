@@ -3,6 +3,6 @@ this project I used Redux for managing states and you can see all users, add new
 
 ## project link: https://user-crud-operations3.netlify.app
 
-## for login use information below:
+for login use the information below:
 ### userName: 07700000000
 ### password: password
